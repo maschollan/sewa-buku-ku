@@ -29,6 +29,19 @@ Route::get('data_peminjam/create', [DataPeminjamController::class, 'create'])->n
 Route::post('data_peminjam/store', [DataPeminjamController::class, 'store'])->name('data_peminjam.store');
 Route::get('data_peminjam/edit/{id}', [DataPeminjamController::class, 'edit'])->name('data_peminjam.edit');
 Route::post('data_peminjam/update/{id}', [DataPeminjamController::class, 'update'])->name('data_peminjam.update');
+Route::post('data_peminjam/delete/{id}', [DataPeminjamController::class, 'destroy'])->name('data_peminjam.destroy');
+
+
+Route::get('coba_collection', [DataPeminjamController::class, 'coba_collection']);
+Route::get('collection_first', [DataPeminjamController::class, 'collection_first']);
+Route::get('collection_last', [DataPeminjamController::class, 'collection_last']);
+Route::get('collection_count', [DataPeminjamController::class, 'collection_count']);
+Route::get('collection_take', [DataPeminjamController::class, 'collection_take']);
+Route::get('collection_pluck', [DataPeminjamController::class, 'collection_pluck']);
+Route::get('collection_where', [DataPeminjamController::class, 'collection_where']);
+Route::get('collection_wherein', [DataPeminjamController::class, 'collection_wherein']);
+Route::get('collection_toarray', [DataPeminjamController::class, 'collection_toarray']);
+Route::get('collection_tojson', [DataPeminjamController::class, 'collection_tojson']);
 
 
 Route::get('lihat_data_peminjam', 'App\Http\Controllers\PeminjamController@lihat_data_peminjam');

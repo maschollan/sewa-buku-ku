@@ -14,9 +14,11 @@
             </div>
             <div class="form-group mb-3">
                 <label for="jenis_kelamin">Jenis Kelamin</label>
-                <select name="jenis_kelamin" id="jenis_kelamin" class="form-control">
-                    <option value="Laki-laki">Laki-laki</option>
-                    <option value="Perempuan">Perempuan</option>
+                <select name="id_jenis_kelamin" id="id_jenis_kelamin" class="form-control">
+                    <option value="">Pilih Jenis Kelamin</option>
+                    @foreach ($list_jenis_kelamin as $key=> $value)
+                        <option value="{{ $key }}">{{ $value }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="form-group mb-3">
@@ -30,6 +32,10 @@
             <div class="form-group mb-3">
                 <label for="pekerjaan">Pekerjaan</label>
                 <input type="text" name="pekerjaan" id="pekerjaan" class="form-control" placeholder="Pekerjaan">
+            </div>
+            <div class="form-group mb-3">
+                <label for="nomor_telepon">Telepon</label>
+                <input type="text" name="nomor_telepon" id="telepon" class="form-control" placeholder="telepon">
             </div>
             <div class="form-group mb-3">
                 <button type="submit" class="btn btn-primary">Simpan</button>

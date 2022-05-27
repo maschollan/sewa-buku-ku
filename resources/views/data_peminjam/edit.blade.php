@@ -14,27 +14,30 @@
             </div>
             <div class="form-group mb-3">
                 <label for="jenis_kelamin">Jenis Kelamin</label>
-                <select name="jenis_kelamin" id="jenis_kelamin" class="form-control">
-                    @if ($peminjam->jenis_kelamin == 'Laki-laki')
-                        <option value="Laki-laki" selected>Laki-laki</option>
-                        <option value="Perempuan">Perempuan</option>
-                    @elseif ($peminjam->jenis_kelamin == 'Perempuan')
-                        <option value="Laki-laki">Laki-laki</option>
-                        <option value="Perempuan">Perempuan</option>                        
-                    @endif
+                <select name="id_jenis_kelamin" id="id_jenis_kelamin" class="form-control">
+                    <option value="">Pilih Jenis Kelamin</option>
+                    @foreach ($list_jenis_kelamin as $key=> $value)
+                        <option value="{{ $key }}" {{ $peminjam->id_jenis_kelamin == $key ? 'selected' : "" }}>
+                            {{ $value }}
+                        </option>
+                    @endforeach
                 </select>
             </div>
             <div class="form-group mb-3">
                 <label for="tanggal_lahir">Tanggal Lahir</label>
-                <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="form-control" placeholder="Tanggal Lahir">
+                <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="form-control" placeholder="Tanggal Lahir" value="{{ $peminjam->tanggal_lahir }}">
             </div>
             <div class="form-group mb-3">
                 <label for="alamat">Alamat</label>
-                <textarea name="alamat" id="alamat" class="form-control" placeholder="Alamat"></textarea>
+                <textarea name="alamat" id="alamat" class="form-control" placeholder="Alamat">{{ $peminjam->alamat }}</textarea>
             </div>
             <div class="form-group mb-3">
                 <label for="pekerjaan">Pekerjaan</label>
-                <input type="text" name="pekerjaan" id="pekerjaan" class="form-control" placeholder="Pekerjaan">
+                <input type="text" name="pekerjaan" id="pekerjaan" class="form-control" placeholder="Pekerjaan" value="{{ $peminjam->pekerjaan }}">
+            </div>
+            <div class="form-group mb-3">
+                <label for="nomor_telepon">Telepon</label>
+                <input type="text" name="nomor_telepon" id="telepon" class="form-control" placeholder="telepon" value="{{ $nomor_telepon }}">
             </div>
             <div class="form-group mb-3">
                 <button type="submit" class="btn btn-primary">Simpan</button>
