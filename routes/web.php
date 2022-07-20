@@ -1,8 +1,11 @@
 <?php
 
-use App\Http\Controllers\DataPeminjamController;
-use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BukuController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\DataPeminjamController;
+use App\Models\DataPeminjam;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,99 +18,45 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', 'App\Http\Controllers\IndexController@index');
-
-
-Route::get('/', [IndexController::class, 'index']);
-
-Route::get('home', function() {
-    return view("home");
+Route::get('/', function () {
+    return view('welcome');
 });
 
-Route::get('data_peminjam', [DataPeminjamController::class, 'index']);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+Route::get('data_peminjam', [DataPeminjamController::class, 'index'])->name('data_peminjam');
 Route::get('data_peminjam/create', [DataPeminjamController::class, 'create'])->name('data_peminjam.create');
 Route::post('data_peminjam/store', [DataPeminjamController::class, 'store'])->name('data_peminjam.store');
 Route::get('data_peminjam/edit/{id}', [DataPeminjamController::class, 'edit'])->name('data_peminjam.edit');
 Route::post('data_peminjam/update/{id}', [DataPeminjamController::class, 'update'])->name('data_peminjam.update');
 Route::post('data_peminjam/delete/{id}', [DataPeminjamController::class, 'destroy'])->name('data_peminjam.destroy');
 
+Route::get('data_peminjam/search', [DataPeminjamController::class, 'search'])->name('data_peminjam.search');
+Route::get('data_peminjam/data_peminjam_pdf', [DataPeminjamController::class, 'data_peminjam_pdf'])->name('data_peminjam.data_peminjam_pdf');
 
-Route::get('coba_collection', [DataPeminjamController::class, 'coba_collection']);
-Route::get('collection_first', [DataPeminjamController::class, 'collection_first']);
-Route::get('collection_last', [DataPeminjamController::class, 'collection_last']);
-Route::get('collection_count', [DataPeminjamController::class, 'collection_count']);
-Route::get('collection_take', [DataPeminjamController::class, 'collection_take']);
-Route::get('collection_pluck', [DataPeminjamController::class, 'collection_pluck']);
-Route::get('collection_where', [DataPeminjamController::class, 'collection_where']);
-Route::get('collection_wherein', [DataPeminjamController::class, 'collection_wherein']);
-Route::get('collection_toarray', [DataPeminjamController::class, 'collection_toarray']);
-Route::get('collection_tojson', [DataPeminjamController::class, 'collection_tojson']);
+Route::get('peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman');
+Route::get('peminjaman/create', [PeminjamanController::class, 'create'])->name('peminjaman.create');
+Route::post('peminjaman/store', [PeminjamanController::class, 'store'])->name('peminjaman.store');
 
+Route::get('peminjaman/detail_peminjam/{id}', [PeminjamanController::class, 'detail_peminjam'])->name('peminjaman.detail_peminjam');
+Route::get('peminjaman/detail_buku/{id}', [PeminjamanController::class, 'detail_buku'])->name('peminjaman.detail_buku');
 
-Route::get('lihat_data_peminjam', 'App\Http\Controllers\PeminjamController@lihat_data_peminjam');
+Route::get('export_excel', [DataPeminjamController::class, 'export_excel'])->name('data_peminjam.export_excel');
 
-Route::get('/biodata', function(){
-    return 'Nama : Kholan Mustaqim<br>NIM : 3.34.20.1.14<br>Alamat : Semarang<br>Hobi : Mengwibu';
-});
+Route::get('user', [UserController::class, 'index'])->name('user.index');
+Route::get('user/create', [UserController::class, 'create'])->name('user.create');
+Route::post('user/store', [UserController::class, 'store'])->name('user.store');
+Route::get('user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
+Route::post('user/update/{id}', [UserController::class, 'update'])->name('user.update');
+Route::post('user/delete/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 
-Route::get('/mahasiswa/{prodi}', function($prodi) {
-    return "Saya Mahasiswa : $prodi";
-});
+Route::get('buku', [BukuController::class, 'index'])->name('buku.index');
+Route::get('buku/create', [BukuController::class, 'create'])->name('buku.create');
+Route::post('buku/store', [BukuController::class, 'store'])->name('buku.store');
+Route::get('buku/edit/{id}', [BukuController::class, 'edit'])->name('buku.edit');
+Route::post('buku/update/{id}', [BukuController::class, 'update'])->name('buku.update');
+Route::post('buku/destroy/{id}', [BukuController::class, 'destroy'])->name('buku.destroy');
 
-Route::get('/mahasiswa2/{prodi?}', function($prodi=null) {
-    if($prodi==null) {
-        return 'Data Prodi Kosong';
-    } else {
-        return "Saya Mahasiswa Prodi : $prodi";
-    }
-});
-
-Route::get('/mahasiswa3/{prodi?}', function($prodi="Teknik Mesin") {
-    return "Saya Mahasiswa Prodi : $prodi";
-});
-
-Route::get('/biodata2', function() {
-    return view('biodata2');
-});
-
-Route::group([], function() {
-    Route::get('/pertama', function() {
-        return 'Halaman pertama';
-    });
-    Route::get('/kedua', function() {
-        return 'Halaman kedua';
-    });
-    Route::get('/ketiga', function() {
-        return 'Halaman ketiga';
-    });
-});
-
-Route::group(['prefix' => 'latihan'], function(){
-    Route::get('/satu', function() {
-        return 'Halaman satu';
-    });
-    Route::get('/dua', function() {
-        return 'Halaman dua';
-    });
-    Route::get('/tiga', function() {
-        return 'Halaman tiga';
-    });
-});
-
-Route::group(array('prefix' => 'admin'), function() {
-    Route::get('/', function() {
-        return 'Halaman Admin';
-    });
-    Route::get('/posts', function() {
-        return 'Halaman Post';
-    });
-    Route::get('/posts/simpan', function() {
-        return 'Data Berhasil disimpan';
-    });
-});
-
-Route::name('kuliah')->group(function() {
-    Route::get('/Teknologi Rekayasa Nuklir', function() {
-        return 'Kuliah Di Program Studi Teknologi Reyasa Nuklir';
-    });
-});
+require __DIR__ . '/auth.php';

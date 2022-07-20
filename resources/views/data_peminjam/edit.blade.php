@@ -2,7 +2,7 @@
 @section('content')
     <div class="container py-3">
         <h4>Edit Data Peminjam</h4>
-        <form action="{{ route('data_peminjam.update', $peminjam->id) }}" method="post">
+        <form action="{{ route('data_peminjam.update', $peminjam->id) }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group mb-3">
                 <label for="kode_peminjam">Kode Peminjam</label>
@@ -38,6 +38,10 @@
             <div class="form-group mb-3">
                 <label for="nomor_telepon">Telepon</label>
                 <input type="text" name="nomor_telepon" id="telepon" class="form-control" placeholder="telepon" value="{{ $nomor_telepon }}">
+            </div>
+            <div class="form-group mb-3">
+                <label for="foto">Foto</label>
+                <input type="file" name="foto" id="foto" class="form-control">
             </div>
             <div class="form-group mb-3">
                 <button type="submit" class="btn btn-primary">Simpan</button>

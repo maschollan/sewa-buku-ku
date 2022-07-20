@@ -20,4 +20,14 @@ class DataPeminjam extends Model
     {
         return $this->belongsTo(JenisKelamin::class, 'id_jenis_kelamin');
     }
+
+    public function data_buku()
+    {
+        return $this->belongsToMany(DataBuku::class, 'peminjaman', 'id_peminjam', 'id_buku');
+    }
+
+    public function peminjaman()
+    {
+        return $this->hasMany(Peminjaman::class, 'id_peminjam');
+    }
 }

@@ -2,9 +2,22 @@
 @section('content')
     <div class="container py-3">
         <h4>Data Peminjam</h4>
-        <div class="text-end">
+
+        @include('_partial/flash_message')
+
+        <a href="{{ route('data_peminjam.data_peminjam_pdf') }}" class="btn btn-primary">Download pdf</a>
+        <a href="{{ route('data_peminjam.export_excel') }}" class="btn btn-primary">Export excel</a>
+
+        {{-- <div class="text-end">
             <a href="{{ route('data_peminjam.create') }}" class="btn btn-primary">Tambah Data Peminjam</a>
-        </div>
+        </div> --}}
+
+        <form action="{{ route('data_peminjam.search') }}" method="get" class="d-flex" style="width:400px;">
+            @csrf 
+            <input type="text" class="form-control form-control-sm me-3" name="kata" placeholder="Cari....">
+            <button type="submit" class="btn btn-primary btn-sm">Cari</button>
+        </form>
+
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -16,6 +29,7 @@
                     <th>Alamat</th>
                     <th>Pekerjaan</th>
                     <th>Telepon</th>
+                    <th>Foto</th>
                     <th>Edit</th>
                     <th>Hapus</th>
                 </tr>
@@ -31,11 +45,16 @@
                         <td>{{ $peminjam->alamat }}</td>
                         <td>{{ $peminjam->pekerjaan }}</td>
                         <td>
-                            {{ 
-                                !empty($peminjam->telepon['nomor_telepon']) ?
-                                $peminjam->telepon['nomor_telepon'] : '-'
-                            }}
-                         </td>
+                            {{ !empty($peminjam->telepon['nomor_telepon']) ? $peminjam->telepon['nomor_telepon'] : '-' }}
+                        </td>
+                        <td>
+                            @if (empty($peminjam->foto) || $peminjam->foto == "")
+                                <img src="{{ asset('foto_peminjam/no-profile.png') }}" alt="" style="width: 50px; height: 50px;">
+                                
+                            @else
+                                <img src="{{ asset('foto_peminjam/'.$peminjam->foto) }}" alt="" style="width: 50px; height: 50px;">
+                            @endif  
+                        </td>
                         <td>
                             <a href="{{ route('data_peminjam.edit', $peminjam->id) }}"
                                 class="btn btn-warning btn-sm">Edit</a>
@@ -54,6 +73,7 @@
 
         <div class="text-left">
             <strong>Jumlah Peminjam : {{ $jumlah_peminjam }}</strong>
+            <p>{{ $data_peminjam->links() }}</p>
         </div>
 
     </div>

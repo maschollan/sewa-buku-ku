@@ -21,7 +21,11 @@ class CreateDataPeminjamsTable extends Migration
             $table->string('alamat');
             $table->string('pekerjaan');
             $table->string('foto');
+            $table->foreignId('id_user');
             $table->foreignID('id_jenis_kelamin');
+            $table->foreign('id_user')
+            ->references('id')->on('users')
+            ->onDelete('cascade');
             $table->foreign('id_jenis_kelamin')
             ->references('id')->on('jenis_kelamin')
             ->onDelete('cascade');
